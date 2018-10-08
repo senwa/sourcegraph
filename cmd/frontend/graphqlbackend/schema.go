@@ -3351,6 +3351,23 @@ type DotcomMutation {
         # The token that represents the payment method used to purchase this product subscription.
         paymentToken: String!
     ): CreatePaidProductSubscriptionResult!
+    # Updates a new product subscription and credits or debits the associated payment method.
+    #
+    # Only Sourcegraph.com site admins and the subscription's account owner may perform this
+    # mutation.
+    #
+    # FOR INTERNAL USE ONLY.
+    updatePaidProductSubscription(
+        # The subscription to update.
+        subscriptionID: ID!
+        # The updated details of the product subscription. All fields of the input type must be set
+        # (i.e., it does not support passing a null value to mean "do not update this field's
+        # value").
+        update: ProductSubscriptionInput!
+        # The token that represents the payment method used to pay for (or receive credit for) this
+        # product subscription update.
+        paymentToken: String!
+    ): UpdatePaidProductSubscriptionResult!
     # Archives an existing product subscription.
     #
     # Only Sourcegraph.com site admins may perform this mutation.
@@ -3559,6 +3576,14 @@ input ProductSubscriptionInput {
 # FOR INTERNAL USE ONLY.
 type CreatePaidProductSubscriptionResult {
     # The newly created product subscription.
+    productSubscription: ProductSubscription!
+}
+
+# The result of Mutation.dotcom.updatePaidProductSubscription.
+#
+# FOR INTERNAL USE ONLY.
+type UpdatePaidProductSubscriptionResult {
+    # The updated product subscription.
     productSubscription: ProductSubscription!
 }
 
