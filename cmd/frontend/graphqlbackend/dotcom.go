@@ -182,8 +182,10 @@ type ProductLicenseConnection interface {
 // ProductSubscriptionPreviewInvoice is the interface for the GraphQL type
 // ProductSubscriptionPreviewInvoice.
 type ProductSubscriptionPreviewInvoice interface {
+	Price() int32
 	AmountDue() int32
-	ProrationDate() int32
+	PeriodEndDate() string
+	ProrationDate() *string
 }
 
 // ProductPlan is the interface for the GraphQL type ProductPlan.

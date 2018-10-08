@@ -3497,11 +3497,19 @@ type ProductSubscriptionConnection {
 #
 # FOR INTERNAL USE ONLY.
 type ProductSubscriptionPreviewInvoice {
-    # The amount due (positive for debits, negative for credits) for this invoice, in USD cents.
+    # The net price for this invoice, in USD cents. If this invoice represents an update to a
+    # subscription, this is the difference between the existing price and the updated price.
+    price: Int!
+    # The amount due for this invoice, in USD cents. If price is negative (i.e., this invoice will
+    # cause a credit), then the amount due is 0.
     amountDue: Int!
-    # The effective date for which this preview invoice was calculated, expressed as the number of
-    # seconds since the epoch.
-    prorationDate: Int!
+    # The date when the billing period for the invoice ends. This is also the end of the validity
+    # period for the subscriptions in the invoice.
+    periodEndDate: String!
+    # For updates to existing subscriptions, the effective date for which this preview invoice was
+    # calculated, expressed as the number of seconds since the epoch. For new subscriptions, this is
+    # null.
+    prorationDate: String
 }
 
 # An input type that describes a product license to be generated and signed.
